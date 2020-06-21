@@ -7,8 +7,18 @@ const logger = require('./middleware/logger')
 const errorHandler = require('./middleware/error')
 const cookieParser = require('cookie-parser') //Cookie-parser package 
 const rootRoute = require('./api/routes/index')
+const chatRoute = require('./api/routes/chat')
+const loginRoute = require('./api/routes/login')
+const partials = require('express-partials')
+
+
+
 
 app.set('view engine', 'ejs');
+app.set('view options', {defaultLayout: 'layout'});
+
+
+app.use(partials());
 app.use(logger.log)
 app.use(express.static(__dirname + '/static')); //Middleware in Express to server static files
 app.use(cookieParser()) // to process cookie request from the browser
@@ -19,6 +29,10 @@ res.send("Hello World")
 })
 
 app.get('/root', rootRoute.homePage )
+
+app.get('/chat', chatRoute.chat)
+
+app.get('/login', loginRoute.login)
 
 app.get('/error', function(req, res, next){
     next(new Error('A contrived error'));

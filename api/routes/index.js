@@ -2,7 +2,10 @@
 
 
 exports.homePage = async (req, res, next) => {
-    res.render('index', {title: 'Index', body: 'Hello World'})
+    res.cookie('IndexCookie', 'This was set from Index');
+// res.render('index', {title: 'Index', cookie: JSON.stringify(req.cookies)});
+    res.render('index', {title: 'Index', body: 'Hello World', Header: "MY home page", cookie:
+    JSON.stringify(req.cookies), session: JSON.stringify(req.session),signedCookie: JSON.stringify(req.signedCookies)})
     // res.render('index', {layout: 'layout', title: 'Index', body: 'Hello World'});
 }
 

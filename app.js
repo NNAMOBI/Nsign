@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser') //Cookie-parser package
 const rootRoute = require('./api/routes/index')
 const chatRoute = require('./api/routes/chat')
 const loginRoute = require('./api/routes/login')
+const loginPostRoute = require('./api/routes/loginProcess')
 // const loginProcessRoute = require('./api/routes/loginProcess')
 const partials = require('express-partials')
 const redis = require('redis')
@@ -16,7 +17,8 @@ const session = require('express-session')
 let RedisStore = require('connect-redis')(session)
 let redisClient = redis.createClient()
 const bodyParser = require('body-parser')
-
+const csrf = require('csurf')
+const util = require('./middleware/utilities')
 
 
 
@@ -42,6 +44,10 @@ app.use(session({
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(csrf())  //built-in middleware that will add the token to the session.
+app.use(util.csrf) //utility that will take it from the session and make it available to the template
+app.use(util.authenticated)
+
                                     
 
 
@@ -49,11 +55,13 @@ app.get('/Home', (req, res, next) => {
 res.send("Hello World")
 })
 
-app.get('/root', rootRoute.index )
+app.get('/root', rootRoute.loginProcess)
+
+app.post('/login', loginPostRoute.login)
 
 // app.post('/v1/api/login', loginProcessRoute.loginProcess)
 
-app.get('/chat', chatRoute.chat)
+app.get('/chat', util.requireAuthentication, chatRoute.chat)
 
 app.get('/login', loginRoute.login)
 

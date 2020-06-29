@@ -7,6 +7,7 @@
 <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"> -->
 </head>
 <body>
+          <form action="/login" method="post">
         <div class="row" style="margin: 100px 100px 100px 350px; width:700px;">
 
             <div class="col-sm-8 col-sm-offset-2">
@@ -33,7 +34,9 @@
            <div class="col-sm-6">
                 <button class="btn btn-danger btn-block  google" style="margin-Top:10px;"><i class="fa fa-google-plus"></i> Google</button>
            </div>
+           <input type="hidden" name="_csrf" value="<%= token %>">
        </div>
+     </form>
 
 </body>
 </html>

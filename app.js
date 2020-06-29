@@ -9,11 +9,13 @@ const cookieParser = require('cookie-parser') //Cookie-parser package
 const rootRoute = require('./api/routes/index')
 const chatRoute = require('./api/routes/chat')
 const loginRoute = require('./api/routes/login')
+// const loginProcessRoute = require('./api/routes/loginProcess')
 const partials = require('express-partials')
 const redis = require('redis')
 const session = require('express-session')
 let RedisStore = require('connect-redis')(session)
 let redisClient = redis.createClient()
+const bodyParser = require('body-parser')
 
 
 
@@ -38,7 +40,8 @@ app.use(session({
                                  // retrieved after the sessionId ('secret') matches the one is the server
                                  // or redis store
 
-                                      
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
                                     
 
 
@@ -46,7 +49,9 @@ app.get('/Home', (req, res, next) => {
 res.send("Hello World")
 })
 
-app.get('/root', rootRoute.homePage )
+app.get('/root', rootRoute.index )
+
+// app.post('/v1/api/login', loginProcessRoute.loginProcess)
 
 app.get('/chat', chatRoute.chat)
 

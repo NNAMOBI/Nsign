@@ -1,5 +1,6 @@
 "use strict"
 
-exports.login = function chat(req, res,next){
-    res.render('login', {title: 'Login', body: "Login app", Header: "My App"});
+exports.login = async (req, res) => {
+    
+    res.render('login', {title: "login"});
     };

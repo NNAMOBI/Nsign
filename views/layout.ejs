@@ -6,13 +6,20 @@
 <link href="../static/css/cosmo.min.css" rel="stylesheet" type="text/css">
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 </head>
-<body>
-        <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
-                <div class="card-header"><%= Header %></div>
-                <div class="card-body">
-                  <h4 class="card-title"></h4>
-                  <p class="card-text"><%- body %></p>
+<body><!DOCTYPE html>
+  <html>
+  <head>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="css/cosmo.min.css" type="text/css">
+  </head>
+  <body>
+               <div class="container">
+                 <div class="row">
+                <div class="col-sm-4"><h1> PacktChat </h1>
                 </div>
-
-</body>
-</html>
+                 </div>
+              <div class="row"><%-body%></div>
+  </div>
+  </body>
+  </html>
+                
